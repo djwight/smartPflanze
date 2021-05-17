@@ -1,7 +1,15 @@
+#include <PubSubClient.h>
+
+#include <MQTT.h>
+#include <WiFiClientSecure.h>
+#include <MQTTClient.h>
+#include <ArduinoJson.h>
+
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <Adafruit_BME280.h>
 #include <ESP8266WiFi.h>
+
 #include "secrets.h"
 #include "constants.h"
 
@@ -10,6 +18,11 @@ U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
 
 // BME280 driver
 Adafruit_BME280 bme;
+
+// configure MQTT for pub/sub
+#define AWS_IOT_PUBLISH_TOPIC "iot_home/bitter_orange"
+WiFiClientSecure net = WiFiClientSecure();
+MQTTClient client = MQTTClient(256);
 
 
 //////////////////////////////////////////////////////////// 
@@ -54,6 +67,26 @@ void setupWifi(const char* ssid, const char* password) {
     sendClear(500, "display");
   }
 }
+
+void connectIot() {
+  // Configure WiFiClientSecure to use the AWS IoT device credentials
+  net.setCACert(AWS_CERT_CA);
+  net.setCertificate(AWS_CERT_CRT);
+  net.setPrivateKey(AWS_CERT_PRIVATE);
+
+  // Connect to the MQTT broker on the AWS endpoint we defined earlier
+  client.begin(AWS_IOT_ENDPOINT, 8883, net);
+  while (!client.connect(THINGNAME)) {
+    delay(200);
+    u8g2.setCursor(0,40);
+    u8g2.print("IoT Core Connecting...");
+    sendClear(500, "display");
+  }
+  u8g2.setCursor(0,40);
+  u8g2.print("AWS IoT Core Connected!");
+  sendClear(1000, "display");
+}
+
 /**
  * Sends the buffer to the display and clears for next measurements
  * 
@@ -84,6 +117,18 @@ sensVals readSensors() {
   int analog_read = analogRead(A0);
   vals.soil = map(analog_read, WATER, AIR, 100, 0);
   return vals;
+}
+
+void publishMessage(sensVals reading) {
+  StaticJsonDocument<200> doc;
+  doc["id"] = "bitter_orange";
+  doc["soil_moist"] = reading.soil;
+  doc["temp"] = reading.temp;
+  doc["humidity"] = reading.humid;
+  char jsonBuffer[512];
+  serializeJson(doc, jsonBuffer); // print to client
+
+  client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
 }
 //////////////////////////////////////////////////////////// 
 ///           END OF ACCESSORY FUNCTIONS

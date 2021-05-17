@@ -4,7 +4,7 @@
 
 
 
-A Group of little IoT projects to make various devices for monitoring to monitor the environment and soil conditions of my *Citrus myrtifolia* tree.
+A Group of little IoT projects to make various devices for monitoring the environment and soil conditions of my *Citrus myrtifolia* tree.
 
 
 ## Repository Layout
@@ -27,4 +27,4 @@ A Group of little IoT projects to make various devices for monitoring to monitor
 ## Soil Monitoring
 Directory: `soilMonitor/`
 
-*Citrus myrtifolia* like most orange tree species is very sensitive to over-watering causing fungal root rot. It is advised to only water this species when the soil is almost bone dry. Unfortunately, this requires a bit of experience to judge correctly and thus the project aims to create a monitoring system for the moisture content in the soil as well as the general environmental conditions of the tree.
+*Citrus myrtifolia*, like most orange tree species, is very sensitive to over-watering causing fungal root rot. It is advised to only water this species when the soil is almost bone dry. Unfortunately, this requires a bit of experience to judge correctly and thus this project aims to create a monitoring system for the moisture content in the soil as well as the general environmental conditions of the tree.
