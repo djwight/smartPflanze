@@ -1,4 +1,5 @@
 <img src="misc/bitter-orange-resize.png" width="100" title="Citrus myrtifolia" align="right"> 
+
 # smartPflanze
 
 
