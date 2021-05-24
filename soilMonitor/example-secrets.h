@@ -1,6 +1,6 @@
 /**
- * Secrets for use with soilMonitor.ino.
- * DO NOT COMMIT!!
+ * Example secrets for use with soilMonitor.ino.
+ * DO NOT COMMIT Real secrets!!
  */
 #include <pgmspace.h>
 
@@ -21,6 +21,11 @@ static const char AWS_CERT_CA[] PROGMEM = R"EOF(
 // Device Certificate
 static const char AWS_CERT_CRT[] PROGMEM = R"KEY(
 -----BEGIN CERTIFICATE-----
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 -----END CERTIFICATE-----
 )KEY";
 

@@ -31,4 +31,9 @@
 *.out
 *.app
 
+# Secret data
 secrets.h
+*.der
+
+# IDE stuff
+.vscode/
